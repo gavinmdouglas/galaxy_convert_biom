@@ -1,0 +1,33 @@
+<tool id="biom_to_stamp" name="Convert BIOM to STAMP" version="0.0.1">
+<description></description>
+
+<command detect_errors="aggressive">
+
+bash $GALAXY_ROOT_DIR/tools/biom_convert/biom_to_stamp.sh $inp_data $spf_out $metadata
+
+</command>
+  <inputs>
+	<param format="biom" name="inp_data" type="data" label="Input file (needs to be of type &quot;biom&quot;)"/>          
+
+    <param name="metadata" type="select" label="--metadata: Optional name of metadata field to be used. This should only be used if you want a STAMP file with columns for taxonomic levels (taxonomy), KEGG ortholog descriptions from PICRUSt1 (KEGG_Description), or KEGG Pathway levels from PICRUSt1 (KEGG_Pathways).">
+        <option value="unset" selected='True'>unset</option>
+        <option value="taxonomy">taxonomy</option>
+        <option value="KEGG_Description">KEGG_Description</option>
+        <option value="KEGG_Pathways">KEGG_Pathways</option>
+    </param>
+
+  </inputs>
+
+  <outputs>
+    <data format="tsv" name="spf_out" />
+  </outputs>
+
+  <help>
+
+Convert BIOM to STAMP Format
+-----------------------------------------------------------------------------------------
+This is a simple tool to convert from BIOM to STAMP (http://kiwi.cs.dal.ca/Software/STAMP) format (a tab-delimited format) using the Python script "biom_to_stamp.py" that is part of Microbiome Helper: https://github.com/LangilleLab/microbiome_helper/wiki
+
+
+</help>
+</tool>

@@ -1,0 +1,68 @@
+<tool id="biom_convert" name="BIOM Format Conversion" version="0.0.1">
+<description></description>
+
+<command detect_errors="aggressive">
+
+bash $GALAXY_ROOT_DIR/tools/biom_convert/biom_convert.sh $inp_data $converted_biom $out_format $header_key $output_metadata_id $table_type $process_obs_metadata $tsv_metadata_formatter
+
+</command>
+  <inputs>
+	<param format="biom" name="inp_data" type="data" label="Input file (needs to be of type &quot;biom&quot;)"/>          
+
+    <param name="out_format" type="select" label="Output format">
+        <option value="--to-tsv" selected='True'>TSV (text)</option>
+        <option value="--to-hdf5">HDF5</option>
+        <option value="--to-json">JSON</option>
+    </param>
+
+    <param name="header_key" type="text" value="unset" label="--header-key: Option to specify the observation metadata to include from the input BIOM table file when creating a tsv table file. By default no observation metadata will be included. Typical usage would be to type the name of the column containing taxonomic labels (when applicable). Anything other than &quot;unset&quot; will be interpreted as an input."/>
+
+    <param name="output_metadata_id" type="text" value="unset" label="--output-metadata-id: Option to specify the name to be given to the observation metadata column when creating a tsv table file if the column should be renamed. Anything other than &quot;unset&quot; will be interpreted as an input."/>
+
+    <param name="table_type" type="select" label="--table-type: Note that specifying the table type is optional.">
+		<option value="unset" selected='True'>unset</option>
+ 		<option value="&quot;OTU table&quot;">OTU table</option>
+        <option value="&quot;Pathway table&quot;">Pathway table</option>
+        <option value="&quot;Function table&quot;">Function table</option>
+        <option value="&quot;Ortholog table&quot;">Ortholog table</option>
+        <option value="&quot;Gene table&quot;">Gene table</option>
+        <option value="&quot;Metabolite table&quot;">Metabolite table</option>
+        <option value="&quot;Taxon table&quot;">Taxon table</option>
+        <option value="&quot;Table&quot;">Table</option>
+	</param>
+
+    <param name="process_obs_metadata" type="select" label="--process-obs-metadata: Option specifying how to process metadata associated with observations when converting from a classic table.">
+        <option value="unset" selected='True'>unset</option>
+        <option value="taxonomy">taxonomy</option>
+        <option value="naive">naive</option>
+        <option value="sc_separated">sc_separated</option>
+    </param>
+
+    <param name="tsv_metadata_formatter" type="select" label="--tsv-metadata-formatter: Option specifying method for formatting the observation metadata.">
+        <option value="unset" selected='True'>unset</option>
+        <option value="naive">naive</option>
+        <option value="sc_separated">sc_separated</option>
+    </param>
+
+  </inputs>
+
+  <outputs>
+    <data format="biom" name="converted_biom" />
+  </outputs>
+
+  <help>
+
+BIOM Conversion Utility
+-----------------------------------------------------------------------------------------
+BIOM files can be in three different formats: tab-delimited (TSV), JSON (similar to XML), or HDF5 (binary). This tool converts between these different BIOM formats. The typical usage is to convert a BIOM file in HDF5 or JSON format to TSV so that it can be opened in applications like Excel.
+
+Note that the available options are those available with "biom convert" on the command-line except for the sample and observation metadata input files.
+
+Typical usage will be to simply select which type of output format is required (i.e. HDF5, JSON, or TSV). However, all options (except for metadata inputfiles and related options) are included here for completion.
+
+For more information please visit:
+----------------------------------
+http://biom-format.org/documentation/biom_conversion.html
+
+</help>
+</tool>
